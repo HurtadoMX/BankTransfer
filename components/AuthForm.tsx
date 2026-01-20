@@ -118,9 +118,10 @@ const AuthForm = ({ type }: { type: string }) => {
         <>
           <Form {...form}>
             <form
+              method="post"
               onSubmit={(e) => {
-                e.preventDefault(); // 🚫 evita el refresh
-                form.handleSubmit(onSubmit)(); // ✅ corre tu submit normal
+                e.preventDefault();
+                form.handleSubmit(onSubmit)();
               }}
               className="space-y-8"
             >
