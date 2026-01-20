@@ -37,8 +37,6 @@ const AuthForm = ({ type }: { type: string }) => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
 
-    console.log(data, "primero, si estoy entrando");
-
     try {
       // Sign up with Appwrite & create plaid token
 
@@ -56,25 +54,16 @@ const AuthForm = ({ type }: { type: string }) => {
           password: data.password,
         };
 
-        console.log(userData, "segundo");
-
         const newUser = await signUp(userData);
 
-        console.log(newUser, "tercero");
-
         setUser(newUser);
-
-        console.log("ahora si me mande, pero no sirvo");
       }
 
       if (type === "sign-in") {
-        console.log("estoy en sign in");
         const response = await signIn({
           email: data.email,
           password: data.password,
         });
-
-        console.log("al parecer si entre");
 
         if (response) router.push("/");
       }
@@ -86,7 +75,6 @@ const AuthForm = ({ type }: { type: string }) => {
     }
   };
 
-  console.log("AuthForm mounted ✅");
   return (
     <section className="auth-form">
       <header className="flex flex-col gap-5 md:gap-8">
@@ -120,12 +108,7 @@ const AuthForm = ({ type }: { type: string }) => {
       ) : (
         <>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              method="post"
-              action="#"
-              className="space-y-8"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {type === "sign-up" && (
                 <>
                   <div className="flex gap-4">
@@ -199,8 +182,6 @@ const AuthForm = ({ type }: { type: string }) => {
                 placeholder="Enter your password"
               />
 
-              {errorMsg && <p className="text-sm text-red-600">{errorMsg}</p>}
-
               <div className="flex flex-col gap-4">
                 <Button type="submit" disabled={isLoading} className="form-btn">
                   {isLoading ? (
@@ -214,9 +195,6 @@ const AuthForm = ({ type }: { type: string }) => {
                     "Sign Up"
                   )}
                 </Button>
-                <button type="button" onClick={() => alert("JS OK ✅")}>
-                  Test JS
-                </button>
               </div>
             </form>
           </Form>

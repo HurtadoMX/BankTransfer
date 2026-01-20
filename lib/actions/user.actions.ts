@@ -80,8 +80,6 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       type: "personal",
     });
 
-    console.log(dwollaCustomerUrl, "dwollaCustomerUrl");
-
     if (!dwollaCustomerUrl) throw new Error("Error creating Dwolla customer");
 
     const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
@@ -109,8 +107,6 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       secure: process.env.NODE_ENV === "production",
     });
 
-    console.log(parseStringify(newUser), "dentro del action sale esto");
-
     return parseStringify(newUser);
   } catch (error: any) {
     console.error("signUp failed:", error);
@@ -120,8 +116,6 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
 
 export async function getLoggedInUser() {
   try {
-    const sessionCookie = cookies().get("appwrite-session")?.value;
-    console.log("appwrite-session cookie exists?", !!sessionCookie);
     const { account } = await createSessionClient();
     const result = await account.get();
 
